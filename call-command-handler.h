@@ -19,10 +19,4 @@ EmberAfStatus emberAfPriceClusterClientCommandParse(EmberAfClusterCommand *cmd);
 // Cluster: Simple Metering, client
 EmberAfStatus emberAfSimpleMeteringClusterClientCommandParse(EmberAfClusterCommand *cmd);
 
-// Cluster: Key Establishment, client
-EmberAfStatus emberAfKeyEstablishmentClusterClientCommandParse(EmberAfClusterCommand *cmd);
-
-// Cluster: Key Establishment, server
-EmberAfStatus emberAfKeyEstablishmentClusterServerCommandParse(EmberAfClusterCommand *cmd);
-
 #endif // SILABS_EMBER_AF_COMMAND_PARSE_HEADER
