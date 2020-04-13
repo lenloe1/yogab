@@ -246,6 +246,9 @@
 // Use this macro to check if Linked List plugin is included
 #define EMBER_AF_PLUGIN_LINKED_LIST
 
+// Use this macro to check if mbed TLS plugin is included
+#define EMBER_AF_PLUGIN_MBEDTLS
+
 // Use this macro to check if NCP Configuration plugin is included
 #define EMBER_AF_PLUGIN_NCP_CONFIGURATION
 // User options for plugin NCP Configuration
@@ -353,6 +356,9 @@
 // Use this macro to check if EZSP Secure Protocol Stub plugin is included
 #define EMBER_AF_PLUGIN_SECURE_EZSP_STUB
 
+// Use this macro to check if Security Support plugin is included
+#define EMBER_AF_PLUGIN_SECURITY_SUPPORT
+
 // Use this macro to check if Simple Main plugin is included
 #define EMBER_AF_PLUGIN_SIMPLE_MAIN
 
@@ -367,15 +373,6 @@
 #define EMBER_AF_PLUGIN_SMART_ENERGY_REGISTRATION_ESI_REDISCOVERY
 #define EMBER_AF_PLUGIN_SMART_ENERGY_REGISTRATION_ESI_DISCOVERY_PERIOD 3
 #define EMBER_AF_PLUGIN_SMART_ENERGY_REGISTRATION_ALLOW_NON_ESI_TIME_SERVERS
-
-// Use this macro to check if Trust Center Network Key Update Broadcast plugin is included
-#define EMBER_AF_PLUGIN_TRUST_CENTER_NWK_KEY_UPDATE_BROADCAST
-
-// Use this macro to check if Trust Center Network Key Update Periodic plugin is included
-#define EMBER_AF_PLUGIN_TRUST_CENTER_NWK_KEY_UPDATE_PERIODIC
-// User options for plugin Trust Center Network Key Update Periodic
-#define EMBER_AF_PLUGIN_TRUST_CENTER_NWK_KEY_UPDATE_PERIODIC_KEY_UPDATE_PERIOD 30
-#define EMBER_AF_PLUGIN_TRUST_CENTER_NWK_KEY_UPDATE_PERIODIC_KEY_UPDATE_UNITS MINUTES
 
 // Use this macro to check if Trust Center Network Key Update Unicast plugin is included
 #define EMBER_AF_PLUGIN_TRUST_CENTER_NWK_KEY_UPDATE_UNICAST
