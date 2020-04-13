@@ -650,6 +650,33 @@ static EmberCommandEntry emberCommandPluginEzmodeCommissioningTable[] = {
   emberCommandEntryActionWithDetails("server", emberAfPluginEzModeCommissioningServerCommand, "uv", "Start EZ-Mode server commissioning.", pluginEzmodeCommissioningServerCommandArguments),
   emberCommandEntryTerminator(),
 };
+void emAfPluginFragmentationArtificialBlockDropCommand(void);
+#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD) && defined(EMBER_TEST)
+static const char * const pluginFragmentationArtificialBlockDropCommandArguments[] = {
+  "The block number to artificially drop to force a retr ...",
+  NULL
+};
+#endif
+
+
+void emAfPluginFragmentationSetWindowSizeCommand(void);
+#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD) && defined(EMBER_TEST)
+static const char * const pluginFragmentationSetRxWindowSizeCommandArguments[] = {
+  "The max number of the blocks received before an APS ack is generated.",
+  NULL
+};
+#endif
+
+
+static EmberCommandEntry emberCommandPluginFragmentationTable[] = {
+#if defined(EMBER_TEST)
+  emberCommandEntryActionWithDetails("artificial-block-drop", emAfPluginFragmentationArtificialBlockDropCommand, "u", "Artificially drops the block number defined by the passed argument onl ...", pluginFragmentationArtificialBlockDropCommandArguments),
+#endif //defined(EMBER_TEST)
+#if defined(EMBER_TEST)
+  emberCommandEntryActionWithDetails("set-rx-window-size", emAfPluginFragmentationSetWindowSizeCommand, "u", "Sets the receive window siz ...", pluginFragmentationSetRxWindowSizeCommandArguments),
+#endif //defined(EMBER_TEST)
+  emberCommandEntryTerminator(),
+};
 void emberAfPluginGatewaySupportTimeSyncLocal(void);
 static EmberCommandEntry emberCommandPluginGatewayTable[] = {
   emberCommandEntryActionWithDetails("time-sync-local", emberAfPluginGatewaySupportTimeSyncLocal, "", "This command will sync the ZCL device's local time attribute with the  ...", NULL),
@@ -658,31 +685,6 @@ static EmberCommandEntry emberCommandPluginGatewayTable[] = {
 void emAfPluginIdentifyCliPrint(void);
 static EmberCommandEntry emberCommandPluginIdentifyTable[] = {
   emberCommandEntryActionWithDetails("print", emAfPluginIdentifyCliPrint, "", "Print which endpoints are reporting.", NULL),
-  emberCommandEntryTerminator(),
-};
-void emAfKeyEstablishmentInterpanCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
-static const char * const pluginKeyEstablishmentInterpanCommandArguments[] = {
-  "The PAN ID that the target is located on.",
-  "The target's EUI64 (big endian)",
-  NULL
-};
-#endif
-
-
-void emAfKeyEstablishmentStartCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
-static const char * const pluginKeyEstablishmentStartCommandArguments[] = {
-  "Target node ID.",
-  "Target node's endpoint.",
-  NULL
-};
-#endif
-
-
-static EmberCommandEntry emberCommandPluginKeyEstablishmentTable[] = {
-  emberCommandEntryActionWithDetails("interpan", emAfKeyEstablishmentInterpanCommand, "vb", "Initiate key establishment with the target device over interpan.", pluginKeyEstablishmentInterpanCommandArguments),
-  emberCommandEntryActionWithDetails("start", emAfKeyEstablishmentStartCommand, "vu", "Initiates key establishment with the target node ID.", pluginKeyEstablishmentStartCommandArguments),
   emberCommandEntryTerminator(),
 };
 void emberAfPluginNetworkCreatorFormCommand(void);
@@ -1254,6 +1256,19 @@ static EmberCommandEntry emberCommandPluginSimpleMeteringClientTable[] = {
   emberCommandEntryActionWithDetails("start-sampling", emAfPluginSimpleMeteringClientCliStartSampling, "vuuwwuvv", "Send a start sampling command to a metering server.", pluginSimpleMeteringClientStartSamplingCommandArguments),
   emberCommandEntryTerminator(),
 };
+void setRegistrationDelayPeriod(void);
+#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
+static const char * const pluginSmartEnergyRegistrationSetPeriodCommandArguments[] = {
+  "The discovery period (in seconds).",
+  NULL
+};
+#endif
+
+
+static EmberCommandEntry emberCommandPluginSmartEnergyRegistrationTable[] = {
+  emberCommandEntryActionWithDetails("set-period", setRegistrationDelayPeriod, "w", "Sets the discovery period (in seconds)", pluginSmartEnergyRegistrationSetPeriodCommandArguments),
+  emberCommandEntryTerminator(),
+};
 void emberAfPluginSetTCLinkKeyUpdateTimerCommand(void);
 #if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
 static const char * const pluginUpdateTcLinkKeyTimerCommandArguments[] = {
@@ -1274,9 +1289,9 @@ static EmberCommandEntry emberCommandPluginTable[] = {
   emberCommandEntrySubMenu("counters", emberCommandPluginCountersTable, ""),
   emberCommandEntrySubMenu("device-database", emberCommandPluginDeviceDatabaseTable, ""),
   emberCommandEntrySubMenu("ezmode-commissioning", emberCommandPluginEzmodeCommissioningTable, ""),
+  emberCommandEntrySubMenu("fragmentation", emberCommandPluginFragmentationTable, ""),
   emberCommandEntrySubMenu("gateway", emberCommandPluginGatewayTable, ""),
   emberCommandEntrySubMenu("identify", emberCommandPluginIdentifyTable, ""),
-  emberCommandEntrySubMenu("key-establishment", emberCommandPluginKeyEstablishmentTable, ""),
   emberCommandEntrySubMenu("network-creator", emberCommandPluginNetworkCreatorTable, ""),
   emberCommandEntrySubMenu("network-creator-security", emberCommandPluginNetworkCreatorSecurityTable, ""),
   emberCommandEntrySubMenu("network-steering", emberCommandPluginNetworkSteeringTable, ""),
@@ -1285,6 +1300,7 @@ static EmberCommandEntry emberCommandPluginTable[] = {
   emberCommandEntrySubMenu("price-common", emberCommandPluginPriceCommonTable, ""),
   emberCommandEntrySubMenu("reporting", emberCommandPluginReportingTable, ""),
   emberCommandEntrySubMenu("simple-metering-client", emberCommandPluginSimpleMeteringClientTable, ""),
+  emberCommandEntrySubMenu("smart-energy-registration", emberCommandPluginSmartEnergyRegistrationTable, ""),
   emberCommandEntrySubMenu("update-tc-link-key", emberCommandPluginUpdateTcLinkKeyTable, ""),
   emberCommandEntryTerminator(),
 };
