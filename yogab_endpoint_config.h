@@ -123,7 +123,6 @@ const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[
   void emberAfPluginNetworkFindInitCallback(void); \
   void emberAfPluginFragmentationInitCallback(void); \
   void emberAfPluginPermitJoinManagerInitCallback(void); \
-  void emberAfPluginTrustCenterNwkKeyUpdatePeriodicInitCallback(void); \
   void emberAfPluginDeviceDatabaseInitCallback(void); \
   void emberAfPluginReportingInitCallback(void); \
   void emberAfPluginCountersInitCallback(void); \
@@ -135,7 +134,6 @@ const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[
   emberAfPluginNetworkFindInitCallback(); \
   emberAfPluginFragmentationInitCallback(); \
   emberAfPluginPermitJoinManagerInitCallback(); \
-  emberAfPluginTrustCenterNwkKeyUpdatePeriodicInitCallback(); \
   emberAfPluginDeviceDatabaseInitCallback(); \
   emberAfPluginReportingInitCallback(); \
   emberAfPluginCountersInitCallback(); \
