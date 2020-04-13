@@ -1079,6 +1079,29 @@
 
 /** @} */ // end group plugin-ezmode-commissioning
 
+/** @addtogroup plugin-fragmentation Plugin Commands: Fragmentation
+ * @ingroup cli
+ * The Fragmentation Plugin provides the ability to supported fragmentation
+ * transmissions.  The CLI allows it to introduce negative behavior to foster
+ * testing.
+ * 
+ * @{
+ */
+
+/** @brief <b>plugin fragmentation artificial-block-drop [block-number:1] </b>
+ *   - <i>Artificially drops the block number defined by the passed argument only once, and then allows it upon a retry.</i>
+ *     - block-number - INT8U - The block number to artificially drop to force a retry.  Set to 0xFF to disable.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_FRAGMENTATION_PLUGIN_FRAGMENTATION_ARTIFICIAL_BLOCK_DROP
+
+/** @brief <b>plugin fragmentation set-rx-window-size [window-size:1] </b>
+ *   - <i>Sets the receive window size.  By definition in the Smart Energy profile it must be set to 1 but this allows to be changed.</i>
+ *     - window-size - INT8U - The max number of the blocks received before an APS ack is generated.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_FRAGMENTATION_PLUGIN_FRAGMENTATION_SET_RX_WINDOW_SIZE
+
+/** @} */ // end group plugin-fragmentation
+
 /** @addtogroup plugin-gateway Plugin Commands: Gateway Support
  * @ingroup cli
  * The gateway support commands provide functionality specific to running a PC
@@ -1108,30 +1131,6 @@
 #define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_IDENTIFY_PLUGIN_IDENTIFY_PRINT
 
 /** @} */ // end group plugin-identify
-
-/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
- * @ingroup cli
- * The Key Establishment commands provide commands to initiate key establishment
- * with a remote target.
- * 
- * @{
- */
-
-/** @brief <b>plugin key-establishment interpan [panId:2] [eui64:-1] </b>
- *   - <i>Initiate key establishment with the target device over interpan.</i>
- *     - panId - INT16U - The PAN ID that the target is located on.
- *     - eui64 - OCTET_STRING - The target's EUI64 (big endian)
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_INTERPAN
-
-/** @brief <b>plugin key-establishment start [nodeId:2] [endpoint:1] </b>
- *   - <i>Initiates key establishment with the target node ID.</i>
- *     - nodeId - INT16U - Target node ID.
- *     - endpoint - INT8U - Target node's endpoint.
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_START
-
-/** @} */ // end group plugin-key-establishment
 
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
@@ -1571,6 +1570,22 @@
 #define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_SIMPLE_METERING_CLIENT_PLUGIN_SIMPLE_METERING_CLIENT_START_SAMPLING
 
 /** @} */ // end group plugin-simple-metering-client
+
+/** @addtogroup plugin-smart-energy-registration Plugin Commands: Smart Energy Registration
+ * @ingroup cli
+ * The Smart Energy Registration plugin contributes several CLI commands to the
+ * application framework to be used in managing registration.
+ * 
+ * @{
+ */
+
+/** @brief <b>plugin smart-energy-registration set-period [discoveryPeriod:4] </b>
+ *   - <i>Sets the discovery period (in seconds)</i>
+ *     - discoveryPeriod - INT32U - The discovery period (in seconds).
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_SMART_ENERGY_REGISTRATION_PLUGIN_SMART_ENERGY_REGISTRATION_SET_PERIOD
+
+/** @} */ // end group plugin-smart-energy-registration
 
 /** @addtogroup plugin-update-tc-link-key Plugin Commands: Update TC Link Key
  * @ingroup cli
@@ -2355,6 +2370,17 @@
 
 /** @} */ // end group plugin-ezmode-commissioning
 
+/** @addtogroup plugin-fragmentation Plugin Commands: Fragmentation
+ * @ingroup cli
+ * The Fragmentation Plugin provides the ability to supported fragmentation
+ * transmissions.  The CLI allows it to introduce negative behavior to foster
+ * testing.
+ * 
+ * @{
+ */
+
+/** @} */ // end group plugin-fragmentation
+
 /** @addtogroup plugin-gateway Plugin Commands: Gateway Support
  * @ingroup cli
  * The gateway support commands provide functionality specific to running a PC
@@ -2374,16 +2400,6 @@
  */
 
 /** @} */ // end group plugin-identify
-
-/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
- * @ingroup cli
- * The Key Establishment commands provide commands to initiate key establishment
- * with a remote target.
- * 
- * @{
- */
-
-/** @} */ // end group plugin-key-establishment
 
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
@@ -2464,6 +2480,16 @@
  */
 
 /** @} */ // end group plugin-simple-metering-client
+
+/** @addtogroup plugin-smart-energy-registration Plugin Commands: Smart Energy Registration
+ * @ingroup cli
+ * The Smart Energy Registration plugin contributes several CLI commands to the
+ * application framework to be used in managing registration.
+ * 
+ * @{
+ */
+
+/** @} */ // end group plugin-smart-energy-registration
 
 /** @addtogroup plugin-update-tc-link-key Plugin Commands: Update TC Link Key
  * @ingroup cli
