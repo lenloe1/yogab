@@ -20,8 +20,6 @@
   extern EmberEventControl emberAfPluginNetworkSteeringFinishSteeringEventControl; \
   extern EmberEventControl emberAfPluginReportingTickEventControl; \
   extern EmberEventControl emberAfPluginScanDispatchScanEventControl; \
-  extern EmberEventControl emberAfPluginTrustCenterNwkKeyUpdateBroadcastMyEventControl; \
-  extern EmberEventControl emberAfPluginTrustCenterNwkKeyUpdatePeriodicMyEventControl; \
   extern EmberEventControl emberAfPluginTrustCenterNwkKeyUpdateUnicastMyEventControl; \
   extern EmberEventControl emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventControl; \
   extern void emberAfPluginConcentratorUpdateEventHandler(void); \
@@ -33,8 +31,6 @@
   extern void emberAfPluginNetworkSteeringFinishSteeringEventHandler(void); \
   extern void emberAfPluginReportingTickEventHandler(void); \
   extern void emberAfPluginScanDispatchScanEventHandler(void); \
-  extern void emberAfPluginTrustCenterNwkKeyUpdateBroadcastMyEventHandler(void); \
-  extern void emberAfPluginTrustCenterNwkKeyUpdatePeriodicMyEventHandler(void); \
   extern void emberAfPluginTrustCenterNwkKeyUpdateUnicastMyEventHandler(void); \
   extern void emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventHandler(void); \
   static void networkEventWrapper(EmberEventControl *control, EmberAfNetworkEventHandler handler, uint8_t networkIndex) \
@@ -77,8 +73,6 @@
   { &emberAfPluginNetworkSteeringFinishSteeringEventControl, emberAfPluginNetworkSteeringFinishSteeringEventHandler }, \
   { &emberAfPluginReportingTickEventControl, emberAfPluginReportingTickEventHandler }, \
   { &emberAfPluginScanDispatchScanEventControl, emberAfPluginScanDispatchScanEventHandler }, \
-  { &emberAfPluginTrustCenterNwkKeyUpdateBroadcastMyEventControl, emberAfPluginTrustCenterNwkKeyUpdateBroadcastMyEventHandler }, \
-  { &emberAfPluginTrustCenterNwkKeyUpdatePeriodicMyEventControl, emberAfPluginTrustCenterNwkKeyUpdatePeriodicMyEventHandler }, \
   { &emberAfPluginTrustCenterNwkKeyUpdateUnicastMyEventControl, emberAfPluginTrustCenterNwkKeyUpdateUnicastMyEventHandler }, \
   { &emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventControl, emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventHandler }, \
   { &emberAfPluginPartnerLinkKeyExchangeTimeoutNetworkEventControls[0], emberAfPluginPartnerLinkKeyExchangeTimeoutNetworkEventWrapper0 }, \
@@ -98,8 +92,6 @@
   "Network Steering Plugin FinishSteering",  \
   "Reporting Plugin Tick",  \
   "Scan Dispatch Plugin Scan",  \
-  "Trust Center Network Key Update Broadcast Plugin My",  \
-  "Trust Center Network Key Update Periodic Plugin My",  \
   "Trust Center Network Key Update Unicast Plugin My",  \
   "Update TC Link Key Plugin BeginTcLinkKeyUpdate",  \
   "Partner Link Key Exchange Plugin Timeout NWK 0", \
