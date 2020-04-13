@@ -59,7 +59,7 @@ EmberAfStatus emberAfClusterSpecificCommandParse(EmberAfClusterCommand *cmd)
       result = emberAfSimpleMeteringClusterClientCommandParse(cmd);
       break;
     case ZCL_KEY_ESTABLISHMENT_CLUSTER_ID:
-      result = emberAfKeyEstablishmentClusterClientCommandParse(cmd);
+      result = status(false, true, cmd->mfgSpecific);
       break;
     default:
       // Unrecognized cluster ID, error status will apply.
@@ -80,7 +80,7 @@ EmberAfStatus emberAfClusterSpecificCommandParse(EmberAfClusterCommand *cmd)
       result = status(false, true, cmd->mfgSpecific);
       break;
     case ZCL_KEY_ESTABLISHMENT_CLUSTER_ID:
-      result = emberAfKeyEstablishmentClusterServerCommandParse(cmd);
+      result = status(false, true, cmd->mfgSpecific);
       break;
     default:
       // Unrecognized cluster ID, error status will apply.
@@ -892,158 +892,6 @@ EmberAfStatus emberAfSimpleMeteringClusterClientCommandParse(EmberAfClusterComma
                                                                               issuerEventId,
                                                                               implementationDateTime,
                                                                               supplyStatus);
-        break;
-      }
-    default:
-      {
-        // Unrecognized command ID, error status will apply.
-        break;
-      }
-    }
-  }
-  return status(wasHandled, true, cmd->mfgSpecific);
-}
-
-// Cluster: Key Establishment, client
-EmberAfStatus emberAfKeyEstablishmentClusterClientCommandParse(EmberAfClusterCommand *cmd)
-{
-  bool wasHandled = false;
-  if (!cmd->mfgSpecific) {
-    switch (cmd->commandId) {
-    case ZCL_TERMINATE_KEY_ESTABLISHMENT_COMMAND_ID:
-      {
-        uint16_t payloadOffset = cmd->payloadStartIndex;
-        uint8_t statusCode;  // Ver.: always
-        uint8_t waitTime;  // Ver.: always
-        uint16_t keyEstablishmentSuite;  // Ver.: always
-        // Command is fixed length: 4
-        if (cmd->bufLen < payloadOffset + 4u) { return EMBER_ZCL_STATUS_MALFORMED_COMMAND; }
-        statusCode = emberAfGetInt8u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 1u;
-        waitTime = emberAfGetInt8u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 1u;
-        keyEstablishmentSuite = emberAfGetInt16u(cmd->buffer, payloadOffset, cmd->bufLen);
-        wasHandled = emberAfKeyEstablishmentClusterTerminateKeyEstablishmentCallback(statusCode,
-                                                                                     waitTime,
-                                                                                     keyEstablishmentSuite);
-        break;
-      }
-    case ZCL_INITIATE_KEY_ESTABLISHMENT_RESPONSE_COMMAND_ID:
-      {
-        uint16_t payloadOffset = cmd->payloadStartIndex;
-        uint16_t requestedKeyEstablishmentSuite;  // Ver.: always
-        uint8_t ephemeralDataGenerateTime;  // Ver.: always
-        uint8_t confirmKeyGenerateTime;  // Ver.: always
-        uint8_t* identity;  // Ver.: always
-        // Command is fixed length: 52
-        if (cmd->bufLen < payloadOffset + 52u) { return EMBER_ZCL_STATUS_MALFORMED_COMMAND; }
-        requestedKeyEstablishmentSuite = emberAfGetInt16u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 2u;
-        ephemeralDataGenerateTime = emberAfGetInt8u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 1u;
-        confirmKeyGenerateTime = emberAfGetInt8u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 1u;
-        identity = cmd->buffer + payloadOffset;
-        wasHandled = emberAfKeyEstablishmentClusterInitiateKeyEstablishmentResponseCallback(requestedKeyEstablishmentSuite,
-                                                                                            ephemeralDataGenerateTime,
-                                                                                            confirmKeyGenerateTime,
-                                                                                            identity);
-        break;
-      }
-    case ZCL_EPHEMERAL_DATA_RESPONSE_COMMAND_ID:
-      {
-        uint16_t payloadOffset = cmd->payloadStartIndex;
-        uint8_t* ephemeralData;  // Ver.: always
-        // Command is fixed length: 22
-        if (cmd->bufLen < payloadOffset + 22u) { return EMBER_ZCL_STATUS_MALFORMED_COMMAND; }
-        ephemeralData = cmd->buffer + payloadOffset;
-        wasHandled = emberAfKeyEstablishmentClusterEphemeralDataResponseCallback(ephemeralData);
-        break;
-      }
-    case ZCL_CONFIRM_KEY_DATA_RESPONSE_COMMAND_ID:
-      {
-        uint16_t payloadOffset = cmd->payloadStartIndex;
-        uint8_t* secureMessageAuthenticationCode;  // Ver.: always
-        // Command is fixed length: 16
-        if (cmd->bufLen < payloadOffset + 16u) { return EMBER_ZCL_STATUS_MALFORMED_COMMAND; }
-        secureMessageAuthenticationCode = cmd->buffer + payloadOffset;
-        wasHandled = emberAfKeyEstablishmentClusterConfirmKeyDataResponseCallback(secureMessageAuthenticationCode);
-        break;
-      }
-    default:
-      {
-        // Unrecognized command ID, error status will apply.
-        break;
-      }
-    }
-  }
-  return status(wasHandled, true, cmd->mfgSpecific);
-}
-
-// Cluster: Key Establishment, server
-EmberAfStatus emberAfKeyEstablishmentClusterServerCommandParse(EmberAfClusterCommand *cmd)
-{
-  bool wasHandled = false;
-  if (!cmd->mfgSpecific) {
-    switch (cmd->commandId) {
-    case ZCL_INITIATE_KEY_ESTABLISHMENT_REQUEST_COMMAND_ID:
-      {
-        uint16_t payloadOffset = cmd->payloadStartIndex;
-        uint16_t keyEstablishmentSuite;  // Ver.: always
-        uint8_t ephemeralDataGenerateTime;  // Ver.: always
-        uint8_t confirmKeyGenerateTime;  // Ver.: always
-        uint8_t* identity;  // Ver.: always
-        // Command is fixed length: 52
-        if (cmd->bufLen < payloadOffset + 52u) { return EMBER_ZCL_STATUS_MALFORMED_COMMAND; }
-        keyEstablishmentSuite = emberAfGetInt16u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 2u;
-        ephemeralDataGenerateTime = emberAfGetInt8u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 1u;
-        confirmKeyGenerateTime = emberAfGetInt8u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 1u;
-        identity = cmd->buffer + payloadOffset;
-        wasHandled = emberAfKeyEstablishmentClusterInitiateKeyEstablishmentRequestCallback(keyEstablishmentSuite,
-                                                                                           ephemeralDataGenerateTime,
-                                                                                           confirmKeyGenerateTime,
-                                                                                           identity);
-        break;
-      }
-    case ZCL_EPHEMERAL_DATA_REQUEST_COMMAND_ID:
-      {
-        uint16_t payloadOffset = cmd->payloadStartIndex;
-        uint8_t* ephemeralData;  // Ver.: always
-        // Command is fixed length: 22
-        if (cmd->bufLen < payloadOffset + 22u) { return EMBER_ZCL_STATUS_MALFORMED_COMMAND; }
-        ephemeralData = cmd->buffer + payloadOffset;
-        wasHandled = emberAfKeyEstablishmentClusterEphemeralDataRequestCallback(ephemeralData);
-        break;
-      }
-    case ZCL_CONFIRM_KEY_DATA_REQUEST_COMMAND_ID:
-      {
-        uint16_t payloadOffset = cmd->payloadStartIndex;
-        uint8_t* secureMessageAuthenticationCode;  // Ver.: always
-        // Command is fixed length: 16
-        if (cmd->bufLen < payloadOffset + 16u) { return EMBER_ZCL_STATUS_MALFORMED_COMMAND; }
-        secureMessageAuthenticationCode = cmd->buffer + payloadOffset;
-        wasHandled = emberAfKeyEstablishmentClusterConfirmKeyDataRequestCallback(secureMessageAuthenticationCode);
-        break;
-      }
-    case ZCL_TERMINATE_KEY_ESTABLISHMENT_COMMAND_ID:
-      {
-        uint16_t payloadOffset = cmd->payloadStartIndex;
-        uint8_t statusCode;  // Ver.: always
-        uint8_t waitTime;  // Ver.: always
-        uint16_t keyEstablishmentSuite;  // Ver.: always
-        // Command is fixed length: 4
-        if (cmd->bufLen < payloadOffset + 4u) { return EMBER_ZCL_STATUS_MALFORMED_COMMAND; }
-        statusCode = emberAfGetInt8u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 1u;
-        waitTime = emberAfGetInt8u(cmd->buffer, payloadOffset, cmd->bufLen);
-        payloadOffset += 1u;
-        keyEstablishmentSuite = emberAfGetInt16u(cmd->buffer, payloadOffset, cmd->bufLen);
-        wasHandled = emberAfKeyEstablishmentClusterTerminateKeyEstablishmentCallback(statusCode,
-                                                                                     waitTime,
-                                                                                     keyEstablishmentSuite);
         break;
       }
     default:
